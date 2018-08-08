@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Mon Jul 30 15:01:44 CST 2018
+fireData-0.0.1-SNAPSHOT.pom>=
+fireData-0.0.1-SNAPSHOT-jar-with-dependencies.jar>=
+fireData-0.0.1-SNAPSHOT.jar>=
