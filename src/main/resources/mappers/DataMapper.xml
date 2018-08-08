@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.turing.Mapper.DataMapper">
+ <!-- 插入红外传感 -->
+  <insert id="insertGroup" parameterType="cn.turing.bean.Group"
+  			useGeneratedKeys="true"
+  		 	keyProperty="id">   
+    INSERT INTO infrared_detection (
+    	volt,
+    	type,
+    	mark,
+    	node,
+    	person,
+    	addTime
+    )VALUES(
+	    #{volt},
+	    #{Type},
+	    #{Mark},
+	    #{Node},
+	    #{Person},	 
+	    #{addTime}
+    );
+  </insert>
+  <insert id="insertAirAndPms200C" parameterType="cn.turing.bean.Air"
+  				useGeneratedKeys="true"
+  				keyProperty="id">
+  		INSERT INTO air_monitoring (
+	  		wd,
+	  		type, mark,
+	  		node, yw, sd, cfpm10nd,
+	  		gs5um, gs2_5um, cfpm1_0nd,
+	  		gs10um, cfpm2_5nd, dqpm10nd,
+	  		dqpm2_5nd, dqpm1_0nd, gs0_3um,
+	  		gs0_5um, gs1um, addTime
+  		) VALUES(
+  			#{WD},
+  			#{Type}, #{Mark},
+  			#{Node}, #{YW}, #{SD}, #{cfpm10nd}, #{gs5um},
+  			#{gs10um}, #{cfpm25nd}, #{dqpm10nd},
+  			#{dqpm25nd}, #{dqpm10nd}, #{gs03um},
+  			#{gs05um}, #{gs1um}, #{addTime}	
+  		);
+  
+  
+  </insert>
+</mapper>

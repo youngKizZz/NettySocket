@@ -1,6 +1,7 @@
 package cn.turing.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 
 
 
@@ -14,6 +15,7 @@ public class Group implements Serializable{
 	private String Mark;
 	private Integer Node;
 	private Integer Person;
+	private Date addTime;
 	public Integer getVolt() {
 		return volt;
 	}
@@ -44,6 +46,12 @@ public class Group implements Serializable{
 	public void setPerson(Integer person) {
 		Person = person;
 	}
+	public Date getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(Date addTime) {
+		this.addTime = addTime;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -52,6 +60,7 @@ public class Group implements Serializable{
 		result = prime * result + ((Node == null) ? 0 : Node.hashCode());
 		result = prime * result + ((Person == null) ? 0 : Person.hashCode());
 		result = prime * result + ((Type == null) ? 0 : Type.hashCode());
+		result = prime * result + ((addTime == null) ? 0 : addTime.hashCode());
 		result = prime * result + ((volt == null) ? 0 : volt.hashCode());
 		return result;
 	}
@@ -84,6 +93,11 @@ public class Group implements Serializable{
 				return false;
 		} else if (!Type.equals(other.Type))
 			return false;
+		if (addTime == null) {
+			if (other.addTime != null)
+				return false;
+		} else if (!addTime.equals(other.addTime))
+			return false;
 		if (volt == null) {
 			if (other.volt != null)
 				return false;
@@ -94,15 +108,16 @@ public class Group implements Serializable{
 	@Override
 	public String toString() {
 		return "Group [volt=" + volt + ", Type=" + Type + ", Mark=" + Mark + ", Node=" + Node + ", Person=" + Person
-				+ "]";
+				+ ", addTime=" + addTime + "]";
 	}
-	public Group(Integer volt, String type, String mark, Integer node, Integer person) {
+	public Group(Integer volt, String type, String mark, Integer node, Integer person, Date addTime) {
 		super();
 		this.volt = volt;
 		Type = type;
 		Mark = mark;
 		Node = node;
 		Person = person;
+		this.addTime = addTime;
 	}
 	public Group() {
 		super();
