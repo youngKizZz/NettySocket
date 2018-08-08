@@ -40,7 +40,7 @@ public class Server {
 				// 绑定处理group
 				bootstrap.group(boss, worker).channel(NioServerSocketChannel.class)
 						//保持连接数
-						.option(ChannelOption.SO_BACKLOG, 1024*1024)
+						.option(ChannelOption.SO_BACKLOG, 1024)
 						//有数据立即发送
 						.option(ChannelOption.TCP_NODELAY, true)
 						//保持连接
@@ -57,6 +57,7 @@ public class Server {
 										new StringEncoder(Charset.forName("utf-8")),									
 										//自定义的处理器
 										new ServerHandler());
+								
 							}
 						});
  
