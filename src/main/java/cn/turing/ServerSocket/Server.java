@@ -1,10 +1,13 @@
 package cn.turing.ServerSocket;
 
+import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 
 
+import cn.turing.Handler.HeartbeatServerHandler;
 import cn.turing.Handler.ServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -18,8 +21,13 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.timeout.IdleStateHandler;
+
 
 public class Server {
+	 	
 	private static Logger logger = Logger.getLogger(Server.class);
 	private ServerSocketChannel serverSocketChannel;
 	 
@@ -38,30 +46,40 @@ public class Server {
 				EventLoopGroup worker = new NioEventLoopGroup();
 				ServerBootstrap bootstrap = new ServerBootstrap();
 				// 绑定处理group
-				bootstrap.group(boss, worker).channel(NioServerSocketChannel.class)
+				bootstrap.group(boss, worker)
+						//实现* NIO选择器基于接受新连接的实现。
+						 .channel(NioServerSocketChannel.class)
 						//保持连接数
 						.option(ChannelOption.SO_BACKLOG, 1024)
 						//有数据立即发送
 						.option(ChannelOption.TCP_NODELAY, true)
 						//保持连接
 						.childOption(ChannelOption.SO_KEEPALIVE, true)
+						//打印netty框架运行的日志
+						.handler(new LoggingHandler(LogLevel.INFO))
+						.localAddress(new InetSocketAddress(serverPort))
 						//处理新连接
 						.childHandler(new ChannelInitializer<SocketChannel>() {
 							@Override
 							protected void initChannel(SocketChannel sc) throws Exception {
 								// 增加任务处理
-								ChannelPipeline p = sc.pipeline();
-								p.addLast(
+								ChannelPipeline p = sc.pipeline();								
+								p.addLast(		
+									//读写超时时间 参数分别为读超时时间，写超时时间，读和写都超时时间，时间单位
+									new IdleStateHandler(2,2,4,TimeUnit.MINUTES),
+									new HeartbeatServerHandler(),
 									//使用了netty自带的编码器和解码器										
-										new StringDecoder(Charset.forName("utf-8")),
-										new StringEncoder(Charset.forName("utf-8")),									
-										//自定义的处理器
-										new ServerHandler());
+									new StringDecoder(Charset.forName("utf-8")),
+									new StringEncoder(Charset.forName("utf-8")),									
+									//自定义的处理器
+									new ServerHandler());								
 								
 							}
+						
 						});
+						
  
-				//绑定端口，同步等待成功
+				//绑定端口，同步等待成功,异步操作
 				ChannelFuture future;
 				try {
 					future = bootstrap.bind(serverPort).sync();

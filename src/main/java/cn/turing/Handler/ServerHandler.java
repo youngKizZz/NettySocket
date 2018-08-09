@@ -50,8 +50,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
      * 服务端接收客户端发送过来的数据结束之后调用
      */
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        ctx.flush();
-        System.out.println("信息接收完毕...");
+        ctx.flush();        
         logger.info("信息接收完毕...");
     }
  
@@ -68,8 +67,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
      */
     public void channelRead(ChannelHandlerContext channelHandlerContext, Object info) throws Exception {
     	
-    		String line = (String) info;
-    		System.err.println("server receive order:"+line);
+    		String line = (String) info;    		
     		logger.info("server receive order:"+line);    		   
     		parsingJson(line);
 //    	//服务端使用这个就能向 每个连接上来的客户端群发消息
@@ -114,7 +112,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
              air.setGs10um(pms200cJson.getInteger("gs10um"));
              System.out.println("YW:" +air.getYW());
              System.out.println("cfpm10nd:" + air.getCfpm10nd());
-            // ServerHandler.push2Mysql(air, pms200c);
+            
          	try {
          		sqlSession=SqlSessionFactoryUtil.openSession();
          		DataMapper dataMapper=sqlSession.getMapper(DataMapper.class);
