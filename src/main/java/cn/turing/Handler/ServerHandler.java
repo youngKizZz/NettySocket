@@ -39,9 +39,8 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
      * 客户端与服务端断开连接时调用
      */
     @Override
-    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("客户端与服务端连接关闭...");
-        logger.info("客户端与服务端连接关闭...");
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {        
+        logger.info("客户端与服务端连接关闭..."+"客户端的ip:"+ctx.channel().remoteAddress());
         
         NettyConfig.group.remove(ctx.channel());
     }
