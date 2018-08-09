@@ -37,7 +37,8 @@
   		) VALUES(
   			#{WD},
   			#{Type}, #{Mark},
-  			#{Node}, #{YW}, #{SD}, #{cfpm10nd}, #{gs5um},
+  			#{Node}, #{YW}, #{SD}, #{cfpm10nd},
+  			#{gs5um}, #{gs25um}, #{cfpmnd10},
   			#{gs10um}, #{cfpm25nd}, #{dqpm10nd},
   			#{dqpm25nd}, #{dqpm10nd}, #{gs03um},
   			#{gs05um}, #{gs1um}, #{addTime}	
