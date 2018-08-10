@@ -31,8 +31,8 @@ public class Server {
 	private static Logger logger = Logger.getLogger(Server.class);
 	private ServerSocketChannel serverSocketChannel;
 	 
-	public Server(int serverPort){
-		bind(serverPort);
+	public Server(){
+		
 	}
 	
 	private void bind(int serverPort) {
@@ -84,11 +84,9 @@ public class Server {
 				try {
 					future = bootstrap.bind(serverPort).sync();
 					if (future.isSuccess()) {
-						serverSocketChannel = (ServerSocketChannel) future.channel();
-						System.out.println("服务端开启成功");
+						serverSocketChannel = (ServerSocketChannel) future.channel();						
 						logger.info("服务端开启成功");
-					} else {
-						System.out.println("服务端开启失败");
+					} else {						
 						logger.info("服务端开启失败");
 					}
 					
@@ -108,7 +106,7 @@ public class Server {
 		thread.start();
 	}
 	/**
-	 * 
+	 * 返回给客户端
 	 * @param msg
 	 */
 	public void sendMessage(Object msg){
@@ -124,7 +122,7 @@ public class Server {
 		}else {
 			port=9994;
 		}
-		Server server=new Server(port);
+		Server server=new Server();
 		server.bind(port);
 	}
 		
