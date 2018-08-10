@@ -2,17 +2,9 @@
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
-<configuration>
-  
+<configuration>  
   <!-- 引入数据源配置文件  -->
-  <properties resource="db.properties" />
-  <!-- 为了避免一直编写包全名，定义别名以方便引用Admin类，Admin类可查看代码  
-  <typeAliases>
-    <typeAlias type="com.hao.example.po.Admin" alias="admin"/>
-  </typeAliases>
-  -->
-  
-
+  <properties resource="db.properties" />   
   <!-- 定义数据库环境，且默认使用development环境 -->
   <environments default="development">
     <!-- 定义id为development的数据库环境 -->
@@ -30,7 +22,7 @@
   </environments>
   <!-- 定义映射器 -->
   <mappers>
-    <!-- 引入AdminMapper映射器配置文件 -->
+    <!-- 引入DataMapper映射器配置文件 -->
     <mapper resource="mappers/DataMapper.xml"/>
   </mappers>
 
